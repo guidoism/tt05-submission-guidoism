@@ -25,4 +25,7 @@ module tt_um_guidoism_alu74181 (
         .gout(uo_out[7])
     );
 
+    assign uio_oe = 8'b11111111;  // This sets all IOs to be outputs. Adjust accordingly.
+    
+
 endmodule
