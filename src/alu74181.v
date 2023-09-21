@@ -1,4 +1,4 @@
-module alu(
+module ALU74181(
            input [3:0]  a,b,
            input [3:0]  s,
            input        m,
