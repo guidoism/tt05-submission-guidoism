@@ -12,27 +12,17 @@ module tt_um_guidoism_alu74181 (
     input  wire       rst_n     // reset_n - low to reset
 );
 
-    // Since the SNN requires a reset signal that's active high, we'll invert the rst_n signal
-    wire reset = ~rst_n;
-
-    wire [1:0] snn_output_spikes;
-
-    // Spiking Neural Network Instance
-    SpikingNeuralNetwork snn (
-        .clk(clk),
-        .reset(reset),
-        .rawInputValue(ui_in),
-        .output_spikes(snn_output_spikes)
+    ALU74181 alu (
+        .a(ui_in[3:0]),
+        .b(ui_in[7:4]),
+        .s(uio_in[3:0]),
+        .m(uio_in[4]),
+        .notc(uio_in[5]),
+        .f(uo_out[3:0]),
+        .eql(uo_out[4]),
+        .cout(uo_out[5]),
+        .pout(uo_out[6]),
+        .gout(uo_out[7])
     );
-
-    // Here, I'm assuming that you want to display the output of the SNN on the 7-segment display.
-    // The two outputs from the SNN are used as the two least significant bits on the display.
-    // The remaining bits can be used as per your requirements.
-
-    assign uo_out = {6'b0, snn_output_spikes};
-
-    // The IO configurations remain unchanged. You can modify them as required for your specific application.
-    assign uio_out = uio_in;
-    assign uio_oe = 8'b11111111;  // This sets all IOs to be outputs. Adjust accordingly.
 
 endmodule
